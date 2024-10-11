@@ -1,0 +1,50 @@
+.language-container {
+    padding: 50px;
+    max-width: 900px;
+    margin: auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.language-heading {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.language-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.language-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 2px solid #007bff;
+    background-color: transparent;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 1 1 120px; /* Buttons will shrink or grow to fit the container */
+}
+
+.language-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.language-btn.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.selected-language {
+    font-size: 1.2rem;
+    color: #333;
+}

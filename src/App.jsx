@@ -1,46 +1,43 @@
-import "./App.css";
-// import React from "react";
-import { BasicFM } from "./components/motion-components/basicFM";
-import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
-import { CircularProgress } from "@nextui-org/progress";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import SearchResults from './pages/SearchResults';
+import RideDetails from './pages/RideDetails';
+import CreateRide from './pages/CreateRide';
+import Profile from './pages/Profile';
+import Ride from './pages/Ride';
+import Drive from './pages/Drive';
+import Bussiness from './pages/Bussiness';
+import CarPullingPage from './pages/CarPulling';
+import Navbar from './components/Navbar'
+import About from './pages/Aboutpage'
+import Help from './pages/Help';
+import Language from './pages/En';
+
+
+// import Navbar from './components/Navbar'; // Uncommented to add navigation
 
 function App() {
-  // const [value, setValue] = React.useState(0);
-
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setValue((v) => (v >= 100 ? 0 : v + 10));
-  //   }, 500);
-
-  //   return () => clearInterval(interval);
-  // }, []);
   return (
-    <>
-      <AvatarGroup className="flex flex-col gap-2">
-        <Avatar>
-          <AvatarIcon />
-        </Avatar>
-        <Avatar>
-          <AvatarIcon />
-        </Avatar>
-        <Avatar>
-          <AvatarIcon />
-        </Avatar>
-      </AvatarGroup>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <h1 className="text-4xl font-bold underline">Hello world!</h1>
-      <BasicFM />
-      <CircularProgress
-      label="Speed"
-      size="lg"
-      value={70}
-      color="success"
-      formatOptions={{ style: "unit", unit: "kilometer" }}
-      showValueLabel={true}
-    />
-    </>
+    <Router>
+      <div>
+      <Navbar />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<SearchResults />} />
+        <Route path="/ride/:id" element={<RideDetails />} />
+        <Route path="/create" element={<CreateRide />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/ride" element={<Ride />} />
+        <Route path="/drive" element={<Drive />} />
+        <Route path="/carpulling" element={<CarPullingPage />} />
+        <Route path="/bussiness" element={<Bussiness />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Language" element={<Language />} />
+        <Route path="/Help" element={<Help />} />
+      </Routes>
+      </div>
+    </Router>
   );
 }
 
