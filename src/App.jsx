@@ -16,6 +16,7 @@ import Language from './pages/En';
 
 
 // import Navbar from './components/Navbar'; // Uncommented to add navigation
+//Bacteria
 
 function App() {
   return (
