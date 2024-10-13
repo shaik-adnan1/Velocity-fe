@@ -1,0 +1,101 @@
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Space between items */
+    align-items: center;
+    padding: 15px 30px; /* Adjusted padding for a more compact look */
+    background: linear-gradient(90deg, rgba(0, 123, 255, 0.8), rgba(56, 104, 235, 0.8)); /* Gradient background */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+    position: relative; /* Position relative for positioning children */
+}
+
+.navbar .logo {
+    font-size: 26px; /* Slightly larger logo */
+    font-weight: bold;
+    color: #ffffff; /* White text for better contrast */
+    margin-right: 30px; /* Add margin to the right */
+}
+
+
+
+.navbar nav {
+    display: flex;
+    gap: 30px; /* Increased gap for better spacing */
+}
+
+.navbar nav a {
+    text-decoration: none;
+    color: #ffffff; /* Use white for contrast */
+    font-weight: 500;
+    padding: 8px 15px; /* Increased padding for better clickability */
+    border-radius: 5px; /* Rounded corners */
+    transition: all 0.3s; /* Smooth transition */
+}
+
+.navbar nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Slight hover effect */
+    color: #007bff; /* Change text color on hover */
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+    margin-left: auto; /* Align right */
+}
+
+.nav-right a {
+    text-decoration: none;
+    color: #ffffff; /* Consistent color */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Add some gap between the icon and the text */
+}
+
+
+.login-btn {
+    border: 2px solid #ffffff; /* Match border color to text color */
+    padding: 8px 12px;
+    border-radius: 20px;
+    color: #ffffff; /* Match text color */
+    transition: all 0.3s; /* Smooth transition */
+    background: transparent; /* Transparent background */
+}
+
+.login-btn:hover {
+    background-color: #ffffff; /* White background on hover */
+    color: #000; /* Black text on hover */
+}
+
+.signup-btn {
+    background-color: #ffffff; /* Match signup button to the navbar color */
+    color: #000; /* Black text */
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s; /* Smooth transition */
+}
+
+.signup-btn:hover {
+    background-color: rgba(0, 123, 255, 0.9); /* Darker shade on hover */
+    color: #ffffff; /* Change text color on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack items vertically */
+        padding: 10px; /* Reduced padding */
+    }
+
+    .navbar nav {
+        flex-direction: column; /* Stack nav items vertically */
+        gap: 10px; /* Reduced gap */
+    }
+
+    .nav-right {
+        margin-top: 10px; /* Add spacing above */
+    }
+}

@@ -1,0 +1,143 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  color: #333; /* Dark text for better readability */
+  overflow-x: hidden;
+  background-color: #f0f4f8; /* Light background for the entire page */
+}
+
+/* Homepage Structure */
+.homepage {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+/* Glass Effect Container */
+.glass-container {
+  display: flex; /* Flex container for side-by-side layout */
+  flex: 1; /* Take full height */
+  border-radius: 15px; /* Rounded corners */
+  overflow: hidden; /* Clip children with rounded corners */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(15px); /* Frosted glass effect */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+  padding: 20px; /* Adjust padding */
+  width: 90%; /* Set the width to be wider */
+  margin: 20px auto; /* Center the container with auto margins */
+  height: 550px; /* Adjust height for smaller length */
+}
+
+/* Form Container Styles */
+.form-container {
+  flex: 1; /* Take up equal space */
+  padding: 20px; /* Inner padding */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  justify-content: center; /* Center the glass container */
+  align-items: stretch; /* Stretch items to fill height */
+  padding: 20px; /* Reduced padding for spacious feel */
+}
+
+/* Left Content Header */
+.form-container h1 {
+  font-size: 36px; /* Adjust font size */
+  line-height: 1.2;
+  margin-bottom: 15px; /* Increased bottom margin */
+  color: #2c3e50; /* Darker color for a more sophisticated look */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.form-container p {
+  font-size: 18px; /* Adjust font size */
+  line-height: 1.6; /* Increased line height for readability */
+  margin-bottom: 20px; /* Increased margin */
+  color: #7f8c8d; /* Softer text color for secondary information */
+}
+
+/* Location Form Styles */
+.location-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Increased gap for better spacing */
+}
+
+.location-form input {
+  padding: 15px; /* Adjust padding */
+  font-size: 16px; /* Adjust font size */
+  border: 1px solid #ccc; /* Lighter border for input fields */
+  border-radius: 10px; /* Slightly more rounded corners */
+  background-color: #f9f9f9; /* Light gray background for input fields */
+  color: #333; /* Dark text for contrast */
+  transition: border-color 0.3s; /* Smooth transition on focus */
+}
+
+.location-form input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #007bff; /* Highlight border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue glow on focus */
+}
+
+.location-form input::placeholder {
+  color: #aaa; /* Lighter placeholder color */
+}
+
+.location-form button {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: #fff; /* White text for contrast */
+  padding: 15px; /* Adjust padding */
+  border: none; /* Remove border for a cleaner look */
+  font-size: 16px; /* Adjust font size */
+  cursor: pointer;
+  border-radius: 10px; /* More rounded corners for buttons */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+.location-form button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Info Text Styles */
+.info {
+  margin-top: 20px; /* Increased space above info section */
+  color: #333; /* Ensure contrast */
+  font-size: 16px; /* Adjust font size */
+}
+
+/* Map Container Styles */
+.map-container {
+  flex: 2; /* Give more space to the map */
+  display: flex; /* Use flexbox for center alignment */
+  justify-content: center; /* Center align the map */
+  align-items: center; /* Center align vertically */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    padding: 20px; /* Reduce padding on smaller screens */
+  }
+
+  .glass-container {
+    flex-direction: column; /* Stack form and map vertically on small screens */
+  }
+
+  .form-container,
+  .map-container {
+    width: 100%; /* Allow full width on smaller screens */
+    padding: 10px; /* Reduce padding */
+  }
+}
