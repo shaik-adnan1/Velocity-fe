@@ -23,7 +23,7 @@ const DrivePage = () => {
         <div className="drive-image">
           <img src={Drive} alt="Driving with Velocity" />
         </div>
-      </div>
+      </div>9000823430
     </div>
   );
 };
