@@ -1,0 +1,132 @@
+/* About.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Light background */
+  }
+  
+.about-hero {
+    background: url('../Images/pexels-tima-miroshnichenko-6169870.jpg') no-repeat center center;
+    background-size: cover; /* Adjust to contain if needed */
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px; /* Adjust padding as needed */
+  }
+  
+  
+  
+  .about-hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  
+  .about-hero p {
+    font-size: 20px;
+  }
+  
+  .mission {
+    padding: 40px 20px;
+    background-color: #fff; /* White background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    margin: 20px 0; /* Margin for spacing */
+  }
+  
+  .mission h2 {
+    margin-bottom: 15px;
+  }
+  
+  .team {
+    padding: 40px 20px;
+    background-color: #e9ecef; /* Light gray background */
+  }
+  
+  .team h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .team-members {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Wrap members on smaller screens */
+  }
+  
+  .team-member {
+    text-align: center;
+    margin: 15px;
+    padding: 20px;
+    background-color: #fff; /* White card background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  }
+  
+  .team-member img {
+    border-radius: 50%; /* Circular images */
+  }
+  
+  .features {
+    padding: 40px 20px;
+  }
+  
+  .features h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .feature-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Wrap cards on smaller screens */
+  }
+  
+  .feature-card {
+    background-color: #fff; /* White card background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px;
+    margin: 15px;
+    flex: 1 1 30%; /* Responsive flex properties */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  }
+  
+  .testimonials {
+    padding: 40px 20px;
+    background-color: #e9ecef; /* Light gray background */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .testimonials h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  blockquote {
+    font-style: italic;
+    margin: 10px 0;
+    text-align: center;
+  }
+  
+  .call-to-action {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .call-to-action h2 {
+    margin-bottom: 20px;
+  }
+  
+  .call-to-action button {
+    padding: 12px 20px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .call-to-action button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
