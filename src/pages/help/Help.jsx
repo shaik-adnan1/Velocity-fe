@@ -1,4 +1,3 @@
-import React from 'react';
 import './Help.css'; // Custom CSS for the Help page
 
 const Help = () => {
