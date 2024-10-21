@@ -1,6 +1,5 @@
-import React from 'react';
-import './Drive.css';
-import Drive from '../Images/drive.jpg';
+import "./Drive.css";
+import Drive from "../../Images/drive.jpg";
 
 const DrivePage = () => {
   return (
@@ -23,7 +22,8 @@ const DrivePage = () => {
         <div className="drive-image">
           <img src={Drive} alt="Driving with Velocity" />
         </div>
-      </div>9000823430
+      </div>
+      9000823430
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import './Ride.css';
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Box, SkeletonText } from '@chakra-ui/react';
 import { useJsApiLoader, GoogleMap, Marker, DirectionsRenderer } from '@react-google-maps/api';
 

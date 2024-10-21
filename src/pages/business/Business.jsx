@@ -1,5 +1,4 @@
-import React from 'react';
-import './Bussiness.css';
+import './Business.css';
 import handshake from '../Images/hands-holding-puzzle-business-problem-solving-concept.jpg';
 
 const BusinessPage = () => {

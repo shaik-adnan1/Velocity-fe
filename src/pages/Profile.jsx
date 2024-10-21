@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -28,7 +28,7 @@ const Profile = () => {
         // Set user data
         setUser(response.data);
       } catch (err) {
-        setError('Failed to fetch user data. Please log in again.');
+        setError('Failed to fetch user data. Please log in again.', err);
         localStorage.removeItem('token');
         navigate('/login');
       }
