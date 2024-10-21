@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './AboutPage.css';
 
 const About = () => {
@@ -66,11 +66,11 @@ const About = () => {
       <section className="testimonials">
         <h2>What Our Users Say</h2>
         <blockquote>
-          "Velocity made my daily commute so much easier and cheaper! Highly recommend!" 
+          Velocity made my daily commute so much easier and cheaper! Highly recommend!
           <cite>- User 1</cite>
         </blockquote>
         <blockquote>
-          "I love the concept of sharing rides. It’s eco-friendly and saves money!" 
+          I love the concept of sharing rides. It’s eco-friendly and saves money!
           <cite>- User 2</cite>
         </blockquote>
       </section>

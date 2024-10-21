@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './En.css'; // Custom CSS for the EN page
 
 const Language = () => {

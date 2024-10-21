@@ -1,6 +1,5 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
-import RideCard from '../components/RideCard';
+import RideCard from '../../components/RideCard';
 
 const SearchResults = () => {
   const location = useLocation();

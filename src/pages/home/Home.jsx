@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Box, SkeletonText, Text } from "@chakra-ui/react";
 import {
   useJsApiLoader,
