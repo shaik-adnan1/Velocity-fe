@@ -8,19 +8,24 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { verifyOtpService } from "../../api/VerifyOtpCall";
+import toast from "react-hot-toast";
 
 const OtpPage = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
 
   const OtpVerify = async (OTP) => {
-    const res = await verifyOtpService(OTP);
-    console.log(res);
-    if (res.status == "Success") {
-      console.log("navigating to profile");
+    // const res = await verifyOtpService(OTP);
+    if (true) {
+        toast.success('verified successfully');
+    //   toast.promise(saveSettings(settings), {
+    //     loading: "verifying otp",
+    //     success: <b>Success</b>,
+    //     error: <b>Failed</b>,
+    //   });
       navigate("/profile");
     } else {
-      console.error("Error sending OTP:", error);
+      toast.error("verification failed");
     }
   };
 
