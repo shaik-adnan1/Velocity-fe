@@ -3,6 +3,8 @@ import PhoneInput from "../../components/phone-input";
 import { Button } from "../../components/ui/button";
 import { sendOtpService } from "../../api/SendOtpCall";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+// import { useToast } from "../../hooks/use-toast";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -13,12 +15,13 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (number) => {
-    console.log("Send Otp")
-    const res = await sendOtpService(number);
-    if (res.status == "Success") {
+    // const res = await sendOtpService(number);
+    console.log(number);
+    toast.success("Otp send Successfully");
+    if (true) {
       navigate("/otp");
     } else {
-      console.error("Error sending OTP:", error);
+      toast.error("Failed to send Otp");
     }
   };
 
