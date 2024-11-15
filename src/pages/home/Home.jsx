@@ -1,25 +1,44 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 import { Box, SkeletonText, Text } from "@chakra-ui/react";
 import {
   useJsApiLoader,
-  GoogleMap,
-  Marker,
+  Autocomplete,
   DirectionsRenderer,
-} from '@react-google-maps/api';
-import './Home.css';
+} from "@react-google-maps/api";
+import "./Home.css";
 
-const center = { lat: 48.8584, lng: 2.2945 };
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+
+const googleMapsLibraries = ["places", "marker"];
 
 const HomePage = () => {
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Updated
-    libraries: ['places'],
-  });
-
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionsResponse] = useState(null);
-  const [distance, setDistance] = useState('');
-  const [duration, setDuration] = useState('');
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [error, setError] = useState("");
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Updated
+    libraries: googleMapsLibraries,
+  });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ latitude, longitude });
+        },
+        (error) => {
+          console.error("error while getting location", error);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
   const originRef = useRef();
   const destinationRef = useRef();
@@ -29,7 +48,7 @@ const HomePage = () => {
   }
 
   async function calculateRoute() {
-    if (originRef.current.value === '' || destinationRef.current.value === '') {
+    if (originRef.current.value === "" || destinationRef.current.value === "") {
       return;
     }
     const directionsService = new google.maps.DirectionsService();
@@ -45,11 +64,15 @@ const HomePage = () => {
 
   function clearRoute() {
     setDirectionsResponse(null);
-    setDistance('');
-    setDuration('');
-    originRef.current.value = '';
-    destinationRef.current.value = '';
+    setDistance("");
+    setDuration("");
+    originRef.current.value = "";
+    destinationRef.current.value = "";
   }
+
+  const { latitude, longitude } = location;
+  const center = { lat: latitude, lng: longitude };
+  console.log("center - my location ", center);
 
   return (
     <div className="homepage">
@@ -59,16 +82,32 @@ const HomePage = () => {
             <h1>Go anywhere with Velocity</h1>
             <p>Request a ride, hop in, and go.</p>
             <form className="location-form">
-              <input type="text" placeholder="Enter location" ref={originRef} />
-              <input
-                type="text"
-                placeholder="Enter destination"
-                ref={destinationRef}
-              />
-              <button type="button" onClick={calculateRoute}>
+              <Autocomplete>
+                <input
+                  className="w-full p-2 border border-gray-300 rounded-md" // Full width with padding, border, and rounded corners
+                  placeholder="Enter origin"
+                  ref={originRef}
+                />
+              </Autocomplete>
+              <Autocomplete>
+                <input
+                  className="w-full p-2 border border-gray-300 rounded-md" // Full width with padding, border, and rounded corners
+                  placeholder="Enter destination"
+                  ref={destinationRef}
+                />
+              </Autocomplete>
+              <button
+                type="button"
+                onClick={calculateRoute}
+                className="mt-4 p-2 bg-green-500 text-white rounded-md"
+              >
                 See prices
               </button>
-              <button type="button" onClick={clearRoute}>
+              <button
+                type="button"
+                onClick={clearRoute}
+                className="mt-2 p-2 bg-gray-500 text-white rounded-md"
+              >
                 Clear Route
               </button>
             </form>
@@ -80,23 +119,19 @@ const HomePage = () => {
           <div className="map-container">
             {/* Google Map Box */}
             <Box position="relative" h="100%" w="100%">
-              <GoogleMap
-                center={center}
-                zoom={15}
-                mapContainerStyle={{ width: '100%', height: '500px' }}
-                options={{
-                  zoomControl: false,
-                  streetViewControl: false,
-                  mapTypeControl: false,
-                  fullscreenControl: false,
-                }}
-                onLoad={map => setMap(map)}
-              >
-                <Marker position={center} />
-                {directionsResponse && (
-                  <DirectionsRenderer directions={directionsResponse} />
-                )}
-              </GoogleMap>
+              <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+                <Map
+                  defaultCenter={center}
+                  defaultZoom={19}
+                  gestureHandling={"greedy"}
+                  disableDefaultUI={true}
+                >
+                  {center && <Marker position={center} />}
+                  {directionsResponse && (
+                    <DirectionsRenderer directions={directionsResponse} />
+                  )}
+                </Map>
+              </APIProvider>
             </Box>
           </div>
         </div>
