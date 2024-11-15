@@ -1,8 +1,29 @@
-# React + Vite
+# `Velocity`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## `A Ride sharing app, that doesn't eat up your pockets on your rides`
 
-Currently, two official plugins are available:
+## `Store Configuration`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+src/
+├── app/
+│ ├── store.js # Central store configuration
+│ └── apiSlice.js # RTK Query base API slice (optional for APIs)
+├── store/
+│ ├── user/
+│ │ ├── userSlice.js # Manages user-related state
+│ │ └── userThunks.js # Handles async operations
+│ ├── rides/
+│ │ ├── rideSlice.js # Manages ride-related state
+│ │ └── rideThunks.js # Handles async operations
+│ ├── pricing/
+│ │ └── pricingSlice.js # Manages dynamic pricing state
+│ ├── notifications/
+│ └── notificationSlice.js # Tracks notifications
+├── components/
+│ ├── Map/
+│ │ └── Map.js # Map component
+│ ├── RideBooking/
+│ │ └── RideBooking.js # Ride booking form
+│ └── DriverDashboard/
+│ └── DriverDashboard.js # Driver management UI
+└── App.js # Main app component
