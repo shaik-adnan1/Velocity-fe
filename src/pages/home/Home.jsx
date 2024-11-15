@@ -1,23 +1,30 @@
+// ---- imports -----
 import { useState, useEffect, useRef } from "react";
 import { Box, SkeletonText, Text } from "@chakra-ui/react";
+import { HashLoader, ClimbingBoxLoader } from "react-spinners";
+
+// Maps
 import {
   useJsApiLoader,
   Autocomplete,
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import "./Home.css";
-
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 
-const googleMapsLibraries = ["places", "marker"];
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCurrentLocation } from "../../store/location/locationActions";
 
+// ------ logic -------
+const googleMapsLibraries = ["places", "marker"];
 const HomePage = () => {
-  const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
-  const [error, setError] = useState("");
+
+  const { currentLocation, loading } = useSelector((state) => state.location);
+  const dispatch = useDispatch();
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Updated
@@ -25,20 +32,8 @@ const HomePage = () => {
   });
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ latitude, longitude });
-        },
-        (error) => {
-          console.error("error while getting location", error);
-        }
-      );
-    } else {
-      setError("Geolocation is not supported by this browser.");
-    }
-  }, []);
+    dispatch(fetchCurrentLocation());
+  }, [dispatch]);
 
   const originRef = useRef();
   const destinationRef = useRef();
@@ -70,9 +65,7 @@ const HomePage = () => {
     destinationRef.current.value = "";
   }
 
-  const { latitude, longitude } = location;
-  const center = { lat: latitude, lng: longitude };
-  console.log("center - my location ", center);
+  console.log("current location from store", currentLocation);
 
   return (
     <div className="homepage">
@@ -112,8 +105,21 @@ const HomePage = () => {
               </button>
             </form>
             <div className="info">
-              <Text>Distance: {distance}</Text>
-              <Text>Duration: {duration}</Text>
+              <Text>
+                Distance:{" "}
+                {distance && (
+                  <HashLoader color="black" className="loader z-50" size={20} />
+                )}
+              </Text>
+              {loading && (
+                <HashLoader color="black" className="loader z-50" size={20} />
+              )}
+              <Text>
+                Duration:{" "}
+                {duration && (
+                  <HashLoader color="black" className="loader z-50" size={20} />
+                )}
+              </Text>
             </div>
           </div>
           <div className="map-container">
@@ -121,12 +127,12 @@ const HomePage = () => {
             <Box position="relative" h="100%" w="100%">
               <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
                 <Map
-                  defaultCenter={center}
+                  defaultCenter={currentLocation}
                   defaultZoom={19}
                   gestureHandling={"greedy"}
                   disableDefaultUI={true}
                 >
-                  {center && <Marker position={center} />}
+                  {currentLocation && <Marker position={currentLocation} />}
                   {directionsResponse && (
                     <DirectionsRenderer directions={directionsResponse} />
                   )}
