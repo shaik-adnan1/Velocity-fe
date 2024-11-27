@@ -7,8 +7,13 @@ const locationSlice = createSlice({
     currentLocation: null,
     error: null,
     loading: false,
+    isMarked: true,
   },
-  reducers: {},
+  reducers: {
+    setIsMarked(state, action) {
+      state.isMarked = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCurrentLocation.pending, (state) => {
@@ -32,4 +37,5 @@ const locationSlice = createSlice({
   },
 });
 
+export const { setIsMarked } = locationSlice.actions;
 export default locationSlice.reducer;

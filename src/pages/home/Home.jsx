@@ -1,7 +1,7 @@
 // ---- imports -----
 import { useState, useEffect, useRef } from "react";
 import { Box, SkeletonText, Text } from "@chakra-ui/react";
-import { HashLoader, ClimbingBoxLoader } from "react-spinners";
+import { HashLoader } from "react-spinners";
 
 // Maps
 import {
@@ -10,41 +10,41 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import "./Home.css";
-import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+import {
+  APIProvider,
+  Map,
+  Marker,
+  useMap,
+  useMapsLibrary,
+} from "@vis.gl/react-google-maps";
 
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCurrentLocation } from "../../store/location/locationActions";
+import { setIsMarked } from "../../store/location/locationSlice";
 
 // ------ logic -------
-const googleMapsLibraries = ["places", "marker"];
+
 const HomePage = () => {
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
+  const originRef = useRef();
+  const destinationRef = useRef();
 
-  const { currentLocation, loading } = useSelector((state) => state.location);
+  // fetching location from store
+  const { currentLocation, loading, isMarked } = useSelector(
+    (state) => state.location
+  );
   const dispatch = useDispatch();
-
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Updated
-    libraries: googleMapsLibraries,
-  });
 
   useEffect(() => {
     dispatch(fetchCurrentLocation());
   }, [dispatch]);
 
-  const originRef = useRef();
-  const destinationRef = useRef();
-
-  if (!isLoaded) {
-    return <SkeletonText />;
-  }
-
   async function calculateRoute() {
     if (originRef.current.value === "" || destinationRef.current.value === "") {
-      return;
+      throw new Error("Enter values into the fucking fileds");
     }
     const directionsService = new google.maps.DirectionsService();
     const results = await directionsService.route({
@@ -94,7 +94,7 @@ const HomePage = () => {
                 onClick={calculateRoute}
                 className="mt-4 p-2 bg-green-500 text-white rounded-md"
               >
-                See prices
+                Find Route
               </button>
               <button
                 type="button"
@@ -132,9 +132,14 @@ const HomePage = () => {
                   gestureHandling={"greedy"}
                   disableDefaultUI={true}
                 >
-                  {currentLocation && <Marker position={currentLocation} />}
-                  {directionsResponse && (
-                    <DirectionsRenderer directions={directionsResponse} />
+                  {currentLocation && isMarked && (
+                    <Marker position={currentLocation} />
+                  )}
+                  {!isMarked && (
+                    <Directions
+                      origin={originRef.current.value}
+                      destination={destinationRef.current.value}
+                    />
                   )}
                 </Map>
               </APIProvider>
@@ -144,6 +149,39 @@ const HomePage = () => {
       </main>
     </div>
   );
+};
+
+const Directions = (props) => {
+  const { origin, destination } = props;
+  const dispatch = useDispatch();
+
+  const map = useMap();
+  const routesLibrary = useMapsLibrary("routes");
+  const [directionsService, setDirectionsService] = useState();
+  const [directionRenderer, setDirectionsRenderer] = useState();
+
+  useEffect(() => {
+    if (!routesLibrary || !map) return;
+
+    setDirectionsService(new routesLibrary.DirectionsService());
+    setDirectionsRenderer(new routesLibrary.DirectionsRenderer({ map }));
+  }, [routesLibrary, map]);
+
+  useEffect(() => {
+    if (!directionRenderer || !directionsService) return;
+
+    directionsService
+      .route({
+        origin: origin,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+        provideRouteAlternatives: true,
+      })
+      .then((response) => {
+        dispatch(setIsMarked(false));
+        directionRenderer.setDirections(response);
+      });
+  }, [directionsService, directionRenderer]);
 };
 
 export default HomePage;
